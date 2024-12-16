@@ -1,0 +1,14 @@
+@startuml
+start
+:начало;
+:Ввод v1, v2;
+if (v1.length != v2.length) then (да)
+    :Вывод "Ошибка! Размерность векторов не совпадает";
+    stop
+endif
+:Создать vres[v1.length];
+repeat : i=0, v1.length-1, 1;
+repeat while (vres[i]=v1[i]+v2[i];)
+:Вывод vres;
+stop
+@enduml

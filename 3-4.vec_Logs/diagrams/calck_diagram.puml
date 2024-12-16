@@ -1,0 +1,18 @@
+@startuml
+title Calc
+
+start
+:Ввод CalcProblemParams;
+:op=CalcProblemParams.op;
+if (op=vv_sum) then (да)
+  :calc_vv_sum;
+else (нет)
+  if () then
+    :нет;
+  else (нет)
+    :да;
+  endif
+endif
+:Вывод CalacResults;
+stop
+@enduml

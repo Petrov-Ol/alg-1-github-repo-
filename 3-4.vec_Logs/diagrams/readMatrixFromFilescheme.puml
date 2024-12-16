@@ -1,0 +1,63 @@
+@startuml
+start
+
+:Инициализация переменных;
+:line;
+:matrixData;
+:dataFile;
+
+:Открытие файла;
+if (Не удалось открыть файл?) then (да)
+    :Логировать "Ошибка открытия файла: " + filepath;
+    :Вернуть matrixData;
+    stop
+else (нет)
+endif
+
+repeat
+    :Чтение строки из файла;
+    :Логировать "Чтение строки: " + line;
+
+    if (line == "matrix") then (да)
+        :Логировать "В файле обнаружено значение 'matrix'";
+        
+        if (getline(dataFile, line)) then (да)
+            :Найти позицию 'x' в строке;
+            
+            if (xPos != string::npos) then (да)
+                :Извлечь размеры матрицы;
+                :matrixData.rows = stoi(line.substr(0, xPos));
+                :matrixData.cols = stoi(line.substr(xPos + 1));
+                :Логировать размеры матрицы;
+            else (нет)
+                :Логировать "Ошибка: неверный формат размеров матрицы. Ожидалось 'MxN'.";
+                :Вернуть matrixData;
+            endif
+            
+            :Создать matrixData.matrix с размерами;
+
+            repeat
+                if (getline(dataFile, line)) then (да)
+                    :Логировать "Чтение строки матрицы: " + line;
+                    :Создать поток: istringstream iss(line);
+                    
+                    repeat
+                        if (!(iss >> matrixData.matrix.getElement(i, j))) then (да)
+                            :Логировать "Ошибка: не удалось прочитать элемент матрицы на позиции (" + i + ", " + j + ")";
+                            :Вернуть matrixData;
+                        endif
+                    repeat while (j < matrixData.cols)
+                else (нет)
+                    :Логировать "Ошибка: недостаточно строк для матрицы. Ожидалось " + matrixData.rows + " строк.";
+                    :Вернуть matrixData;
+                endif
+            repeat while (i < matrixData.rows)
+        endif
+    endif
+repeat while (getline(dataFile, line))
+
+:dataFile.close();
+:Вернуть matrixData;
+
+stop
+@enduml

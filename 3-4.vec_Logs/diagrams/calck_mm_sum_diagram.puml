@@ -1,0 +1,26 @@
+@startuml
+
+start
+:Входные данные: mat1, mat2;
+if (Размерности матриц совпадают?) then (да)
+    :Создать объект result;
+    :Установить размерности result;
+    :Инициализировать матрицу result;
+    
+    repeat
+        :Для i от 0 до rows-1;
+        repeat
+            :Для j от 0 до cols-1;
+            :result.matrix[i][j] = mat1.matrix[i][j] + mat2.matrix[i][j];
+        repeat while (j < cols)
+    repeat while (i < rows)
+    
+    :Вернуть result;
+else (нет)
+    :logAll("Ошибка! Размерности матриц не совпадают");
+    :Вернуть пустой объект MatrixData;
+endif
+
+stop
+
+@enduml

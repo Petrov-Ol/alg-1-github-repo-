@@ -1,0 +1,10 @@
+@startuml
+start
+:начало;
+:Ввод CalckResults;
+:Ввод ExportConfig;
+repeat : i=0, nCalckResults, 1;
+repeat while (ExportToFile(._))
+:Конец;
+stop
+@enduml
